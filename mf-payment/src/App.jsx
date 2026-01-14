@@ -78,7 +78,7 @@ export default function PaymentApp() {
           <div className="text-sm space-y-2">
             <div className="flex justify-between">
               <span>Recipient Receives</span>
-              <strong>$1,000.00</strong>
+              <strong>$601.00</strong>
             </div>
             <div className="flex justify-between">
               <span>Exchange Rate</span>
@@ -86,7 +86,7 @@ export default function PaymentApp() {
             </div>
             <div className="flex justify-between">
               <span>Transfer Amount</span>
-              <strong>₹83,450.00</strong>
+              <strong>₹50,000.00</strong>
             </div>
             <div className="flex justify-between">
               <span>Service Fee</span>
@@ -103,7 +103,7 @@ export default function PaymentApp() {
               Total Payable
             </p>
             <p className="text-2xl font-extrabold text-navy">
-              ₹84,040.00
+              ₹50,590.00
             </p>
           </div>
 

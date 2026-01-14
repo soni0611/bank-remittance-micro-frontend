@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
-
+import ErrorBoundary from "./ErrorBoundary";
+import ServiceUnavailable from "./ServiceUnavailable";
 // Lazy load micro-frontends
 const OnboardingApp = lazy(() => import("onboarding/OnboardingApp"));
 const RemittanceApp = lazy(() => import("remittance/RemittanceApp"));
@@ -30,21 +31,63 @@ export default function App() {
   }, []);
 
   const renderMF = () => {
-    switch (currentStep) {
-      case "onboarding":
-        return <OnboardingApp />;
-      case "remittance":
-        return <RemittanceApp />;
-      case "compliance":
-        return <ComplianceApp />;
-      case "payment":
-        return <PaymentApp />;
-      case "tracking":
-        return <TrackingApp />;
-      default:
-        return <OnboardingApp />;
-    }
-  };
+  switch (currentStep) {
+    case "onboarding":
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Onboarding" />}
+        >
+          <OnboardingApp />
+        </ErrorBoundary>
+      );
+
+    case "remittance":
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Remittance" />}
+        >
+          <RemittanceApp />
+        </ErrorBoundary>
+      );
+
+    case "compliance":
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Compliance" />}
+        >
+          <ComplianceApp />
+        </ErrorBoundary>
+      );
+
+    case "payment":
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Payment" />}
+        >
+          <PaymentApp />
+        </ErrorBoundary>
+      );
+
+    case "tracking":
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Tracking" />}
+        >
+          <TrackingApp />
+        </ErrorBoundary>
+      );
+
+    default:
+      return (
+        <ErrorBoundary
+          fallback={<ServiceUnavailable serviceName="Onboarding" />}
+        >
+          <OnboardingApp />
+        </ErrorBoundary>
+      );
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-[#f4f7f9]">
