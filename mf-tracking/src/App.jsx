@@ -27,7 +27,7 @@ export default function TrackingApp() {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-6 border-t pt-6">
-          <Info label="Recipient" value="Aditya Sharma" />
+          <Info label="Recipient" value="Aman Sharma" />
           <Info label="Amount Sent" value="$601.00 USD" />
           <Info label="Exchange Rate" value="1 USD = 83.45 INR" />
           <Info label="Est. Arrival" value="Oct 26, 2023" highlight />
@@ -102,7 +102,7 @@ export default function TrackingApp() {
             </p>
 
             <div className="space-y-3 text-sm">
-              <Row label="Name" value="Aditya Sharma" />
+              <Row label="Name" value="Aman Sharma" />
               <Row label="Bank" value="ICICI Bank Ltd" />
               <Row label="Account" value="•••• 8291" />
               <Row label="Purpose" value="Family Maintenance" />

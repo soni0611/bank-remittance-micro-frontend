@@ -31,7 +31,7 @@ export default function RemittanceApp() {
                 Selected Recipient
               </p>
               <p className="font-bold text-gray-900">
-                Aditya Sharma → John Doe Smith
+                Aditya Sharma → Aman Sharma
               </p>
             </div>
             <button className="flex items-center gap-2 text-[#F58220] font-bold text-sm hover:underline">
