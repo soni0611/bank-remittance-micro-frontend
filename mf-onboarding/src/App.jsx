@@ -40,7 +40,7 @@ export default function OnboardingApp() {
             </h2>
 
             <p className="text-white/80 text-sm leading-relaxed">
-              Access ICICI Bank’s international remittance platform designed
+              Access ABC Bank’s international remittance platform designed
               for secure, compliant, and real-time global transfers.
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function OnboardingApp() {
           </form>
 
           <p className="text-xs text-gray-400 mt-6 text-center">
-            © ICICI Bank Ltd. All rights reserved.
+            © ABC Bank Ltd. All rights reserved.
           </p>
         </div>
       </div>

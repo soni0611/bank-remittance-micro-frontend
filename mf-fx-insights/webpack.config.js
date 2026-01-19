@@ -4,7 +4,7 @@ const { ModuleFederationPlugin } = require("webpack").container;
 module.exports = {
   mode: "development",
   devServer: {
-    port: 3000,
+    port: 3006,
   },
   entry: "./src/index.js",
   module: {
@@ -21,14 +21,10 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      name: "shell",
-      remotes: {
-        onboarding: "onboarding@http://localhost:3001/remoteEntry.js",
-        compliance: "compliance@http://localhost:3002/remoteEntry.js",
-        remittance: "remittance@http://localhost:3003/remoteEntry.js",
-        payment: "payment@http://localhost:3004/remoteEntry.js",
-        tracking: "tracking@http://localhost:3005/remoteEntry.js",
-        // fx: "fx@http://localhost:3006/remoteEntry.js",
+      name: "fx",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./FxInsightsApp": "./src/App",
       },
       shared: {
         react: { singleton: true },

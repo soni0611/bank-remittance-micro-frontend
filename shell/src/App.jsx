@@ -1,12 +1,14 @@
 import React, { Suspense, lazy, useEffect, useState } from "react";
 import ErrorBoundary from "./ErrorBoundary";
 import ServiceUnavailable from "./ServiceUnavailable";
+
 // Lazy load micro-frontends
 const OnboardingApp = lazy(() => import("onboarding/OnboardingApp"));
 const RemittanceApp = lazy(() => import("remittance/RemittanceApp"));
 const ComplianceApp = lazy(() => import("compliance/ComplianceApp"));
 const PaymentApp = lazy(() => import("payment/PaymentApp"));
 const TrackingApp = lazy(() => import("tracking/TrackingApp"));
+const FxInsightsApp = lazy(() => import("fx/FxInsightsApp"));
 
 export default function App() {
   const [currentStep, setCurrentStep] = useState("onboarding");
@@ -17,6 +19,7 @@ export default function App() {
     "compliance",
     "payment",
     "tracking",
+    "fx",
   ];
 
   const currentIndex = steps.indexOf(currentStep);
@@ -31,63 +34,57 @@ export default function App() {
   }, []);
 
   const renderMF = () => {
-  switch (currentStep) {
-    case "onboarding":
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Onboarding" />}
-        >
-          <OnboardingApp />
-        </ErrorBoundary>
-      );
+    switch (currentStep) {
+      case "onboarding":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Onboarding" />}>
+            <OnboardingApp />
+          </ErrorBoundary>
+        );
 
-    case "remittance":
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Remittance" />}
-        >
-          <RemittanceApp />
-        </ErrorBoundary>
-      );
+      case "remittance":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Remittance" />}>
+            <RemittanceApp />
+          </ErrorBoundary>
+        );
 
-    case "compliance":
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Compliance" />}
-        >
-          <ComplianceApp />
-        </ErrorBoundary>
-      );
+      case "compliance":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Compliance" />}>
+            <ComplianceApp />
+          </ErrorBoundary>
+        );
 
-    case "payment":
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Payment" />}
-        >
-          <PaymentApp />
-        </ErrorBoundary>
-      );
+      case "payment":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Payment" />}>
+            <PaymentApp />
+          </ErrorBoundary>
+        );
 
-    case "tracking":
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Tracking" />}
-        >
-          <TrackingApp />
-        </ErrorBoundary>
-      );
+      case "tracking":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Tracking" />}>
+            <TrackingApp />
+          </ErrorBoundary>
+        );
 
-    default:
-      return (
-        <ErrorBoundary
-          fallback={<ServiceUnavailable serviceName="Onboarding" />}
-        >
-          <OnboardingApp />
-        </ErrorBoundary>
-      );
-  }
-};
+      case "fx":
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="FX Insights" />}>
+            <FxInsightsApp />
+          </ErrorBoundary>
+        );
 
+      default:
+        return (
+          <ErrorBoundary fallback={<ServiceUnavailable serviceName="Onboarding" />}>
+            <OnboardingApp />
+          </ErrorBoundary>
+        );
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#f4f7f9]">
@@ -95,7 +92,7 @@ export default function App() {
       <header className="bg-white border-b">
         {/* ---------- TOP BAR ---------- */}
         <div className="h-16 px-6 flex items-center justify-between">
-          {/* LOGO (Clickable Home) */}
+          {/* LOGO */}
           <div
             className="flex items-center gap-3 cursor-pointer"
             onClick={() => setCurrentStep("onboarding")}
@@ -114,7 +111,7 @@ export default function App() {
             </div>
             <div>
               <p className="font-extrabold text-[#003A8F] uppercase leading-none">
-                ICICI Bank
+                ABC Bank
               </p>
               <p className="text-[9px] font-bold tracking-widest text-[#F58220] uppercase">
                 International Remittance
@@ -131,7 +128,6 @@ export default function App() {
               <p className="text-[10px] text-gray-400">Demo Instance</p>
             </div>
 
-            {/* NOTIFICATION ICON */}
             <div className="relative">
               <svg
                 className="w-6 h-6 text-gray-500"
@@ -154,20 +150,33 @@ export default function App() {
         {/* ---------- STEP NAVIGATION ---------- */}
         <div className="h-12 px-6 flex items-center justify-center gap-6 text-xs font-bold uppercase">
           {steps.map((step, index) => {
-            let classes = "text-gray-400 border-transparent";
+            const isFx = step === "fx";
+
+            let classes = "text-gray-400 border-transparent cursor-not-allowed";
 
             if (index < currentIndex) {
-              // completed
-              classes = "text-[#10B981] border-[#10B981]";
+              classes = "text-[#10B981] border-[#10B981] cursor-not-allowed";
             } else if (index === currentIndex) {
-              // active
-              classes = "text-[#F58220] border-[#F58220]";
+              classes = "text-[#F58220] border-[#F58220] cursor-default";
+            }
+
+            // FX is always clickable
+            if (isFx) {
+              classes =
+                index === currentIndex
+                  ? "text-[#F58220] border-[#F58220] cursor-pointer"
+                  : "text-[#003A8F] border-transparent cursor-pointer hover:text-[#F58220]";
             }
 
             return (
               <div
                 key={step}
                 className={`pb-2 border-b-2 transition-colors ${classes}`}
+                onClick={() => {
+                  if (isFx) {
+                    setCurrentStep("fx");
+                  }
+                }}
               >
                 {index + 1}. {step}
               </div>

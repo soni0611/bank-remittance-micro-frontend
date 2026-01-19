@@ -11,7 +11,7 @@ export default function TrackingApp() {
               Reference Number
             </p>
             <h1 className="text-[#003A8F] text-2xl font-extrabold">
-              #ICICI-8829103
+              #ABC-8829103
             </h1>
           </div>
 
@@ -103,7 +103,7 @@ export default function TrackingApp() {
 
             <div className="space-y-3 text-sm">
               <Row label="Name" value="Aman Sharma" />
-              <Row label="Bank" value="ICICI Bank Ltd" />
+              <Row label="Bank" value="ABC Bank Ltd" />
               <Row label="Account" value="•••• 8291" />
               <Row label="Purpose" value="Family Maintenance" />
             </div>

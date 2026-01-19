@@ -65,7 +65,7 @@ export default function PaymentApp() {
           />
 
           <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg text-xs text-navy">
-            All payments are processed via ICICI Bank’s secure gateway.Your financial data is encrypted and never stored.
+            All payments are processed via ABC Bank’s secure gateway.Your financial data is encrypted and never stored.
           </div>
         </div>
 
